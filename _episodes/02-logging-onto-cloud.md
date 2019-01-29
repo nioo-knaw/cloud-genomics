@@ -3,9 +3,10 @@ title: "Logging onto Cloud"
 teaching: 5
 exercises: 5
 questions:
-- How do I connect to an AWS instance?
+- How do I connect to an instance on the SURFsara's cloud?
 objectives:
-- Log onto to a running instance
+- Log onto to the cloud  user interface
+- Start a VM based on a template
 - Log off from a running instance
 keypoints:
 - You can use one set of log-in credentials for many instances
@@ -36,28 +37,38 @@ window.onload = set_page_view_defaults;
 
 ## Important Note
 
-This lesson covers how to log into, and out of, an *already running* Amazon instance.
+This lesson covers how to start a VM based on a already created image and template, and log in and out of a running instance
 
-If you're returning post-workshop and want to launch your own instance, use [launching cloud instances on your own](../LaunchingInstances/)
+If you're returning post-workshop and want to launch your own instance, use follow the [SURFsara tutorial](https://doc.hpccloud.surfsara.nl/tutorials/) on how to create a template and instance from scratch.
 
-## Background to AWS
+## Background
 
-Setting up a new AWS instance requires a credit card, an AWS account, and up to
-a day of verification time, but you've already spent most of this workshop working in the cloud!
-To save time, your instructor launched a remote computer (instance) for you prior
-to the workshop, and connected it to our lesson data. You've already logged into it at
-least once, but now that you're more comfortable with the command line, lets go back and talk about how it all works.
+To save time, your instructor configured a template for a virtual machine for you prior
+to the workshop, and connected it to our lesson data.
 
+## Access the User Interface
 
-We have a pre-configured copy of the data needed for this workshop that is always available
-to attach to a new instance on Amazon, as long as you have an account, and the log-in credentials to open it.
+The User Interface (UI) is the web site that allows you to manage your _Virtual Machines_ (_VMs_) on the HPC Cloud.
 
-To access the pre-configured workshop data, you'll need to use our log-in credentials (user name and password):
+### Log in to the UI
 
-**Log-in Credentials (case-sensitive!)**
+>**Note**
+>
+>You will receive your access credentials from the workshop facilitators.
 
-- Username: dcuser
-- Password: data4Carp
+* Open the UI page in your browser: [https://ui.hpccloud.surfsara.nl/](https://ui.hpccloud.surfsara.nl/)
+* Enter the username & password provided
+* Hit the `Login` button
+
+<!---
+#### Switch to "user view"
+
+The interface supports several so-called views, which are a way to arrange information on the screen. For this course you should use the _user view_.
+
+* Locate the *buddy* icon <i class="fa fa-user"></i> with your user name at the top-right corner of the screen and click it.
+* In the drop-down menu, move to *<i class="fa fa-eye"></i> Views* and in that sub-menu select *user*.
+-->
+
 
 But first, you need a place to log *into*! To find the instance that's attached to that data,
 you'll need something called an IP address. Your instructor should have given this to you
