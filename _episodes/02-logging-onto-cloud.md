@@ -126,7 +126,7 @@ Next, you need to copy the public SSH key (`id_rsa.pub`) to the UI. The matching
 
 Working with the HPC Cloud service mostly revolves around building and destroying Virtual Machines. This section will guide you through the process of building a VM running Linux. Here's an overview of the main steps you will be taking:
 
-* Importing a SURFsara pre-made `image` with a Linux operating system installed
+* Clone a template and images `image` with a Linux operating system installed
 * Reviewing the VM attributes defined in the `template`
 * Instantiating the `template` to run your first VM
 * Accessing your VM and gracefully shut it down
@@ -134,6 +134,12 @@ Working with the HPC Cloud service mostly revolves around building and destroyin
 Let's create your first VM to be run on the HPC Cloud Oort!
 
 ### Cloning a template
+
+* Go to the _<i class="fa fa-file-o"></i> VMs_ tab under _Templates_ on the left menu
+* Find the `template` with the name "carpentry-genomics-wageningen" and check the tick-box 
+* Click on the blue Clone button in the top menu
+* Give the new template a unqiue name, for example adding your name in the end.
+* Click on `Clone with Images`
 
 ### Reviewing the Template  
 
@@ -169,8 +175,7 @@ This list is (probably) empty at the moment, because you have not yet started an
 
 * Click the button _<i class="fa fa-plus" style="background-color:#43AC6A;border-color:#368a55;color:#fff;padding:1px 1ex 1px 1ex;"></i>_ to bring up a "Create Virtual Machine" screen
 * Select the *First Template* by clicking once on it
-* Find the input box for _VM name_ and give your virtual machine a name: **My First VM**
-* Inspect the remaining `template` attributes, for the time being do not change them (in particular, leave _Number of instances_ at 1)
+* Inspect the `template` attributes, for the time being do not change them (in particular, leave _Number of instances_ at 1)
 * Click on the green _Create_ button at the top of the screen
 * Refresh the list of VMs by clicking button <i class="fa fa-refresh"></i> at the top. You will see the _status_ of the VM change
 
