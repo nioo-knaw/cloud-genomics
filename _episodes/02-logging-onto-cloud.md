@@ -37,7 +37,7 @@ window.onload = set_page_view_defaults;
 
 ## Important Note
 
-This lesson covers how to start a VM based on a already created image and template, and log in and out of a running instance
+This lesson covers how to start a VM based on a already created image and template, and log in and out of a running instance. This lesson is an adapted version of the [SURFsara HPC tutorial](https://doc.hpccloud.surfsara.nl/tutorials/)
 
 If you're returning post-workshop and want to launch your own instance, use follow the [SURFsara tutorial](https://doc.hpccloud.surfsara.nl/tutorials/) on how to create a template and instance from scratch.
 
@@ -143,7 +143,7 @@ Let's create your first VM to be run on the HPC Cloud Oort!
 
 ### Reviewing the Template  
 
-A `template` consists of a set of attributes that define how a Virtual Machine should look like. For example, how many cores do you want your VM to have? How much RAM memory? What storage drives to attach? Which network connections, etc. ? You will have to adapt the `template` you imported from the _Apps_ list, so that the VM(s) you create out of it meet the requirements you have.
+A `template` consists of a set of attributes that define how a Virtual Machine should look like. For example, how many cores do you want your VM to have? How much RAM memory? What storage drives to attach? Which network connections, etc. ? You can adapt the `template` you cloned, so that the VM(s) you create out of it meet the requirements you have.
 
 For this part of the course, we would like you to edit the imported `template` following these steps:
 
@@ -174,8 +174,9 @@ An overview of all existing VMs, that you have the priviledges to see, are displ
 This list is (probably) empty at the moment, because you have not yet started any VM.
 
 * Click the button _<i class="fa fa-plus" style="background-color:#43AC6A;border-color:#368a55;color:#fff;padding:1px 1ex 1px 1ex;"></i>_ to bring up a "Create Virtual Machine" screen
-* Select the *First Template* by clicking once on it
+* Select your cloned version of *carpentry-genomics-wageningen* by clicking once on it
 * Inspect the `template` attributes, for the time being do not change them (in particular, leave _Number of instances_ at 1)
+* You can leave the VM Name blank, a number will be appended to the template name
 * Click on the green _Create_ button at the top of the screen
 * Refresh the list of VMs by clicking button <i class="fa fa-refresh"></i> at the top. You will see the _status_ of the VM change
 
