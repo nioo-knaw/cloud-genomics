@@ -84,9 +84,13 @@ To create a new SSH key pair:
 
 1. Open a terminal on Linux or macOS, or Git Bash / WSL on Windows.
 2. Generate a new ED25519 SSH key pair:
+
 ```ssh-keygen -t ed25519 -C "email@example.com"```
+
 Or, if you want to use RSA:
+
 ```ssh-keygen -o -t rsa -b 4096 -C "email@example.com"```
+
 The -C flag adds a comment in the key in case you have multiple of them
 and want to tell which is which. It is optional.
 
@@ -118,130 +122,159 @@ Next, you need to copy the public SSH key (`id_rsa.pub`) to the UI. The matching
 * There is no _Save_ button. Click outside the text box to complete your action
 * Briefly check the contents of the text box against your public key and verify they match: it should start with `ssh-rsa AAAAB`...
 
-### My first VM
+## My first VM
 
-But first, you need a place to log *into*! To find the instance that's attached to that data,
-you'll need something called an IP address. Your instructor should have given this to you
-at the beginning of the workshop.
+Working with the HPC Cloud service mostly revolves around building and destroying Virtual Machines. This section will guide you through the process of building a VM running Linux. Here's an overview of the main steps you will be taking:
 
-An IP address is essentially the numerical version of a web address like www.amazon.com
+* Importing a SURFsara pre-made `image` with a Linux operating system installed
+* Reviewing the VM attributes defined in the `template`
+* Instantiating the `template` to run your first VM
+* Accessing your VM and gracefully shut it down
 
-Recall that cloud computing is about choice. You can rent just a single processor on a large computer
-for a small project, or you can rent hundreds of processors spread across multiple computers for
-a large project. In either case, once you rent the collection of processors, Amazon will
-present your rental to you as if it was a single computer. So, the physical computers that host your
-instances don't really move, *but* every time you launch a new instance, it will have a new IP address.
+Let's create your first VM to be run on the HPC Cloud Oort!
 
-So, each time you launch a new instance, the *IP address* changes, but your *Log-in Credentials* don't have to.
+### Cloning a template
 
-## Connection Protocols
+### Reviewing the Template  
 
-We will use a protocol called Secure Shell (SSH) that, as the name implies, provides you
-with a secure way to use a [shell](http://swcarpentry.github.io/shell-novice). In our case,
-the shell will be running on a remote machine. This protocol is available for every
-operating system, but sometimes requires additional software.
+A `template` consists of a set of attributes that define how a Virtual Machine should look like. For example, how many cores do you want your VM to have? How much RAM memory? What storage drives to attach? Which network connections, etc. ? You will have to adapt the `template` you imported from the _Apps_ list, so that the VM(s) you create out of it meet the requirements you have.
 
-## Logging onto a cloud instance
+For this part of the course, we would like you to edit the imported `template` following these steps:
 
-**Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="aws_unix" id="id_aws_unix" selected> AWS_UNIX </option><option value="aws_win" id="id_aws_win" selected> AWS_Windows </option></select>**
+* Go to the _<i class="fa fa-file-o"></i> VMs_ tab under _Templates_ on the left menu
+* Find the `template` created previously and check the tick-box
+* Click on the blue _Update_ button to start editing the template
+* Browse through the different tabs there (i.e. _General_, _Storage_, _Network_, ...) to get acquainted with their contents
+* Verify that your VM will have internet access:
+  * Select the _<i class="fa fa-globe"></i> Network_ tab which shows the network interfaces (`NIC`) for your VM
+  * The feedback below tells that the internet interface `NIC 0` on the left pane is mapped to `internet`  
+
+![youselectednetwork](/images/youselectednetwork.png)
+* Check the _<i class="fa fa-exchange"></i> Input/Output_ tab:
+    * In the _Graphics_ section, the _VNC_ radio button must be selected
+    * In the _Inputs_ section, make sure an entry _table USB_ is listed
+
+If this is not the case, then under the _Inputs_ section select _Type_ **Tablet** and _Bus_ **USB** from the drop-down lists, and finally click the _Add_ button next to those drop-down lists.
+
+* If you made any changes to the `template`, click the green button _Update_ at the top, to save your changes.
+
+### Starting the VM
+
+As mentioned earlier, a `template` is just a description of the Virtual Machine that we want to build. Let's create the actual VM from it.
+
+* Go to the _<i class="fa fa-th"></i> VMs_ section below _Instances_ on the left menu
+
+An overview of all existing VMs, that you have the priviledges to see, are displayed.
+This list is (probably) empty at the moment, because you have not yet started any VM.
+
+* Click the button _<i class="fa fa-plus" style="background-color:#43AC6A;border-color:#368a55;color:#fff;padding:1px 1ex 1px 1ex;"></i>_ to bring up a "Create Virtual Machine" screen
+* Select the *First Template* by clicking once on it
+* Find the input box for _VM name_ and give your virtual machine a name: **My First VM**
+* Inspect the remaining `template` attributes, for the time being do not change them (in particular, leave _Number of instances_ at 1)
+* Click on the green _Create_ button at the top of the screen
+* Refresh the list of VMs by clicking button <i class="fa fa-refresh"></i> at the top. You will see the _status_ of the VM change
 
 
-<div id="div_aws_win" style="display:block" markdown="1">
+### What happened?
 
-#### Connecting using PC
+Congratulations! You have just created a fresh, clean Virtual Machine!
 
-*Prerequisites*: You must have an SSH client. There are several free options but you should have installed [PuTTY.exe](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) at the begining of the workshop, and we're going to continue using that.
+> **Note**  
+>Your VM will appear in the list of Virtual Machines. At first, it will have the state `PENDING`. This indicates that the HPC Cloud is looking for a place where your VM can actually run. Finding the right place depends on the amount and types of resources (cores, memory, disk...) you requested in the `template`. Keep refreshing the list by clicking the _refresh_ button <i class="fa fa-refresh"></i>. When the required resources become available, your VM will show the status `RUNNING`. Only then you will be able to make use of it.
+
+Let's summarise what you have seen so far. Click on each of the tabs on the left menu and inspect the information provided. The most important ones at this point are:
+
+* _Instances_ &gt; _<i class="fa fa-th"></i> VMs_: here you can manage your VM(s) (e.g.: create, terminate, ...). When you click anywhere on a running VM row (except the tick-box) you can inspect the extended information for that VM in the different tabs. You can even change some VM features from these tabs.
+* _Templates_ &gt; _<i class="fa fa-file-o"></i> VMs_: here you can manage your templates. The `template` gives your VM the shape you want. It is just a recipe, and not the machine itself.
+* _Storage_ &gt; _<i class="fa fa-download"></i> Images_: here you can manage storage places. You can look at `images` as hard drives.
+* _Storage_ &gt; _<i class="fa fa-cloud-download"></i> Apps_: here you can see the list of `appliances` endorsed by SURFsara HPC Cloud team. One `app` of course is a bundle of an `image` and a `template`, which provide a basic working set of installed software and configured properties that allow you to easily create and use a VM.
 
 
-1. Open PuTTY
-2. Paste in the 'Host Name (or IP address)' section the IP address provided by your instructor (or the IP address of an instance you have provisioned yourself)
+#### <a name="logging_in_to_the_virtual_machine"></a> Logging in to the Virtual Machine
 
-    *Keep the default selection 'SSH' and Port (22)*
+You can interact with your VM in several ways: command-line (e.g.: SSH), VNC (UI in your browser) or a remote desktop. We will use SSH in a terminal for the time being.
 
-    ![](../fig/putty_screenshot_1.png)
+In order to log in to your VM, you will make use of the SSH public key [stored in your profile](#add-your-public-ssh-key) earlier. Proceed as follows:
 
-2. Click 'Open' 
-    
-    You will be presented with a security warning
+* **On the UI:** find the VM IP address
 
-    ![](../fig/putty_screenshot_2.png)
+The IP address of a VM is shown in the _IPs_ column on the VM list, and in the _Network_ tab of the VM details page.
 
-3. Select 'Yes' to continue to connect
-3. In the final step, you will be asked to provide a login and password
-    
-    **Note:** When typing your password, it is common in Unix/Linux not see see any asterisks (e.g. `****) or moving cursors. Just continue typing
+* **On your laptop:** start a terminal
 
-    ![](../fig/putty_screenshot_3.png)
+* **On your laptop:** type the following command on the terminal to establish a connection with your VM
 
-You should now be connected!
+>**Note**
+>
+>Replace 145.100.5Q.RST with your IP address!
 
+```sh
+ssh ubuntu@145.100.5Q.RST
+```
+
+<div style="width:90%; margin-left:auto; margin-right:auto; margin-top:1ex; margin-bottom:1ex;" class="alert alert-info" markdown="1">
+<i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>
+
+You may receive a message like the following:
+
+```bash
+WARNING: Your password has expired.
+You must change your password now and login again!
+Changing password for ubuntu.
+(current) UNIX password:
+```
+
+In that case, you will have to "change" the password for user `ubuntu`. Type in the old password (you will not see any characters being typed, but that is expected), which is: `ubuntu` (without the quote marks). Then hit Enter. After that, type in a new password that you will know, followed by the Enter key. And type that new password again. 
+
+You may be logged out after a successful password change. Type the `ssh` command again that you typed before you were prompted to change the password.
 </div>
 
 
-<div id="div_aws_unix" style="display:block" markdown="1">
+If everything went well, the first time you try to log in your terminal will ask you to add the VM IP to the list of known hosts. Type *Yes*, in that case.
+
+You should now see a similar line in your terminal: `ubuntu@packer-ubuntu-14:~$`.
+This is the prompt of your VM and is waiting for your input.
+You have logged in successfully!
+
+* Look around a bit, make yourself familiar with the system:
+
+```sh
+ubuntu@packer-ubuntu-14:~$ ls /
+ubuntu@packer-ubuntu-14:~$ whoami
+```
+
+* Create a file:
+
+```sh
+ubuntu@packer-ubuntu-14:~$ echo "Hello HPC Cloud!" > myfile
+ubuntu@packer-ubuntu-14:~$ cat myfile
+```
+
+* Logout by typing `logout` or `ctrl-D` in your terminal (do **not** issue any shutdown command):
+
+```sh
+ubuntu@packer-ubuntu-14:~$ logout
+```
+
+> <i class="fa fa-question-circle" aria-hidden="true"></i> **Food for brain**
+>
+> Log in to your VM again. *Is your file still there?*
 
 
-#### Connecting using Mac/Linux
+### <a name="first_shutdown"></a> First shutdown
 
-Mac and Linux operating systems will already have terminals installed. 
+Let's shutdown your VM. Whenever you do not need your VM running, you should shut it down to stop consuming the resources allocated.
 
-1. Open the terminal
+* Go to the list of running VMs in the Cloud UI (_Instances_ &gt; _<i class="fa fa-th"></i> VMs_)
+* Tick the box to the left on the row with your VM
+* At the upper right corner of the screen, click the red button <i class="fa fa-trash-o" style="background-color:#f04124;border-color:#cf2a0e;color:#fff;padding:1px 1ex 1px 1ex;"></i> and click _Terminate_
+* A confirmation action is needed, click OK
+* Refresh the list of VMs (_<i class="fa fa-refresh"></i>_) until your VM is gone
 
-    Simply search for 'Terminal' and/or look for the terminal icon
+You can always boot the "same" VM again whenever you need it, from the corresponding `template`.
 
-    ![terminal icon](../fig/terminal.png)
-
-2. Type the following command substituting `ip_address` by the IP address your instructor will provide (or the IP address of an instance you have provisioned yourself)
-
-    ~~~
-    $ ssh dcuser@ip_address
-    ~~~
-    {: .bash}
-
-    *Be sure to pay attention to capitalization and spaces*
-
-3. You will receive a security message that looks something like the message below
-
-    ~~~
-    The authenticity of host 'ec2-52-91-14-206.compute-1.amazonaws.com (52.91.14.206)' can't be established.
-    ECDSA key fingerprint is SHA256:S2mMV8mCThjJHm0sUmK2iOE5DBqs8HiJr6pL3x/XxkI.
-    Are you sure you want to continue connecting (yes/no)?
-    ~~~
-    {: .bash}
-
-4. Type `yes` to proceed
-5. In the final step, you will be asked to provide a login and password
-    
-    **Note:** When typing your password, it is common in Unix/Linux not see any asterisks (e.g. `****`) or moving cursors. Just continue typing.
-
-You should now be connected!
-
-</div>
-
-## Logging off a cloud instance
-
-Logging off your instance is a lot like logging out of your local computer: it stops any processes
-that are currently running, but doesn't shut the computer off. AWS instances acrue charges whenever
-they are running, *even if you are logged off*.
-
-If you are *completely* done with your AWS instance, you will need to **terminate** it after you log off. Instructions for terminating an instance are here: [launching cloud instances on your own](../LaunchingInstances).
-
-To log off, use the `exit` command in the same terminal you connected with. This will close the connection, and your terminal will go back to showing your local computer:
-
-~~~
-dcuser@ip-172-31-62-209 $ exit
-
-Amandas-MacBook-Pro-3 $
-~~~
-{: .bash}
-
-## Logging back in
-
-Internet connections can be slow or unstable. If you're just browsing the internet, that means you have
-reload pages, or wait for pictures to load. When you're working in cloud, that means you'll sometimes
-be suddenly disconnected from your instance when you weren't expecting it. Even on the best internet
-connections, your signal will occasionally drop, so it's good to know the above SSH steps, and be able
-to log into AWS without looking up the instructions each time.
-
-In the next section, we'll also show you some programs that you can use to keep your processes going
-even if your connection drops. But for now, just practice logging on and off a few times.
+> <i class="fa fa-question-circle" aria-hidden="true"></i> **Food for brain**
+>
+> When the VM has been shut down and disappeared from the list, check and refresh the _Storage_ &gt; _<i class="fa fa-download"></i> Images_ and _Templates_ &gt; _<i class="fa fa-file-o"></i> VMs_ tabs. *Are your `image` and `template` still there?*
+>
+> The HPC Cloud has hundreds of users. Many of them have common questions. In order to address these we have put together a web site with some documentation, we call it the HPC Cloud Documentation. Do you know the URL of this web site? Make sure you find out!
