@@ -7,15 +7,19 @@ The cloud is a fancy name for the huge network of computers that host your favor
 stream movies, and shop online, but you can also harness all of that computing power for
 running analyses that would take days, weeks or even years on your local computer.
 
-In this lesson, you'll learn about renting cloud services that fit your analytic needs,
-and how to interact with one of those services (AWS) via the command line. 
+In this lesson, you'll learn about using cloud services that fit your analytic needs,
+and how to interact with one of those services (SURFsara HPC) via the command line. 
 
+SURFsara has been operating the HPC Cloud as an Infrastructure as a Service (`IaaS`) for several years. The HPC Cloud service offers users access to fast computing nodes and high-performant big storage volumes through a powerful graphical user interface. The underlying cluster [Oort](https://en.wikipedia.org/wiki/Oort_cloud) is managed by the [OpenNebula](http://opennebula.org/) cloud management software.
+
+This tutorial aims to introduce the participants to the HPC Cloud, by providing a set of lectures and hands-on examples to be run on the _Oort_ infrastructure. If you follow these tutorials as part of an (introduction) course, your instructor will have credentials ready for you to use.
 
 > ## Prerequisites
 >
-> This lesson assumes a working understanding of the bash shell. If you haven't already completed the [Shell Genomics](https://www.datacarpentry.org/shell-genomics/) lesson, and aren't familiar with the bash shell, please review those materials
-> before starting this lesson.
+> Participants are expected to have a laptop with Internet connection and a browser installed. Prior experience with [Linux commands](http://cli.learncodethehardway.org/book/) will help, but is not a prerequisite.
 > 
-> Windows users will need to install PuTTY. See the installation instructions in [Setup]({{ relative_root_path }}{% link setup.md %}).
-{: .prereq}
-
+> For this workshop you will need:
+> 
+> * A computer with Internet access
+> * A browser (Chrome or Firefox will do nicely)
+> * An [SSH client](https://nioo-knaw.github.io/2019-02-05-wageningen-genomics/#setup)
