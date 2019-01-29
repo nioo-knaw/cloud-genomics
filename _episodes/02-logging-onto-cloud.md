@@ -69,6 +69,56 @@ The interface supports several so-called views, which are a way to arrange infor
 * In the drop-down menu, move to *<i class="fa fa-eye"></i> Views* and in that sub-menu select *user*.
 -->
 
+### Add your public SSH key
+
+To complete the setup of your HPC Cloud account, you need to **add a Secure Shell (SSH) public key to your UI account**. This is a one-time task!
+
+>**Note**
+>
+>If you are not familiar with the SSH authentication method, please read about it on our [documentation page](https://doc.hpccloud.surfsara.nl/SSHkey).
+
+
+First, you need to own an SSH private/public key pair.
+
+To create a new SSH key pair:
+
+1. Open a terminal on Linux or macOS, or Git Bash / WSL on Windows.
+2. Generate a new ED25519 SSH key pair:
+```ssh-keygen -t ed25519 -C "email@example.com"```
+Or, if you want to use RSA:
+```ssh-keygen -o -t rsa -b 4096 -C "email@example.com"```
+The -C flag adds a comment in the key in case you have multiple of them
+and want to tell which is which. It is optional.
+
+
+3. Next, you will be prompted to input a file path to save your SSH key pair to.
+If you don't already have an SSH key pair, use the suggested path by pressing
+Enter. Using the suggested path will normally allow your SSH client
+to automatically use the SSH key pair with no additional configuration.
+
+If you already have an SSH key pair with the suggested file path, you will need
+to input a new file path and declare what host
+this SSH key pair will be used for in your ~/.ssh/config file.
+
+
+4. Once the path is decided, you will be prompted to input a password to
+secure your new SSH key pair. It's a best practice to use a password,
+but it's not required and you can skip creating it by pressing
+Enter twice.
+If, in any case, you want to add or change the password of your SSH key pair,
+you can use the -pflag:
+```ssh-keygen -p -o -f <keyname>```
+
+Next, you need to copy the public SSH key (`id_rsa.pub`) to the UI. The matching private key (`id_rsa`) remains safe in your laptop.
+
+* Copy the content of your **public** SSH key to the clipboard (e.g. `cat ~/.ssh/id_rsa.pub`, then select and copy all the text)
+* Go to the [UI](https://ui.hpccloud.surfsara.nl/) and select *<i class="fa fa-cog"></i> Settings* from the *buddy* icon  <i class="fa fa-user"></i>
+* Locate the section _Public SSH Key_ and click on the blue edit icon <i class="fa fa-pencil-square-o" style="color:#0098c3;"></i>
+* Paste the content of your public SSH key file into the text box
+* There is no _Save_ button. Click outside the text box to complete your action
+* Briefly check the contents of the text box against your public key and verify they match: it should start with `ssh-rsa AAAAB`...
+
+### My first VM
 
 But first, you need a place to log *into*! To find the instance that's attached to that data,
 you'll need something called an IP address. Your instructor should have given this to you
