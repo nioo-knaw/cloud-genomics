@@ -3,10 +3,7 @@ layout: page
 title: Setup
 ---
 
-This workshop is designed to be run on pre-imaged Amazon Web Services 
-(AWS) instances. All the software and data used in the workshop are 
+This workshop is designed to be run on a pre-imaged on the SURFsara HPC. All the software and data used in the workshop are 
 hosted on an Amazon Machine Image (AMI). For information about how to
 use the workshop materials, see the 
-[setup instructions](http://www.datacarpentry.org/genomics-workshop/setup/) on the main workshop page.
-
-Windows users should also download and install [PuTTY](http://www.putty.org/). 
+[setup instructions](https://nioo-knaw.github.io/2019-02-05-wageningen-genomics/#setup) on the main workshop page.
