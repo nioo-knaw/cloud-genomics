@@ -1,6 +1,6 @@
 ---
 title: "Logging onto Cloud"
-teaching: 15
+teaching: 30
 exercises: 5
 questions:
 - How do I connect to an instance on the SURFsara's cloud?
